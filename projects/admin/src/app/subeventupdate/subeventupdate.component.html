@@ -1,0 +1,79 @@
+<main>
+    <app-nav-bar [headerTitle]="PageTitle"></app-nav-bar>
+    <div id="app" class="page-content page-content-shift">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form class="form-container" [formGroup]="subeventupdateForm" [hidden]="submitted"
+                        (ngSubmit)="subupdate()">
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput placeholder="Event Name:" required id="name" formControlName="Event_Name">
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput [matDatepicker]="picker1" placeholder="Event Start Date"
+                                formControlName="Event_Start_Date" id="start_date" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-error>Please Select a Date.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput [matDatepicker]="picker2" placeholder="Event End Date" id="end_date"
+                                required formControlName="Event_End_Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #picker2></mat-datepicker>
+                            <mat-error>Please Select a Date.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput placeholder="Venue:" required id="venue" formControlName="Event_Venue">
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select placeholder="Event Type" formControlName="Event_Type" required
+                                (selectionChange)="selectChange($event)">
+                                <mat-option *ngFor="let eventType of eventTypes" [(value)]="eventType.value">
+                                    {{eventType.viewValue}}</mat-option>
+                            </mat-select>
+                            <mat-error>Please Select a Category.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="selectedType[i] === 'TeamEvent'" [hideRequiredMarker]="false"
+                            [floatLabel]="auto">
+                            <input matInput placeholder="Maximum Team Size:" required
+                                formControlName="Event_Team_Size_max">
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="selectedType[i] === 'TeamEvent'" [hideRequiredMarker]="false"
+                            [floatLabel]="auto">
+                            <input matInput placeholder="Minimum Team Size:" required
+                                formControlName="Event_Team_Size_min">
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput placeholder="Registration Fee:" required formControlName="RegistrationFee">
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <!--<button *ngIf="subEventForm.get('subEvents').length>1" type="button"
+                                            (click)="removeSubEvent(i)" mat-flat-button class="card-warn-btn">Remove
+                                            SubEvent</button> -->
+
+                        <mat-list style="width: 100%; padding-bottom: 10px;">
+                            <mat-divider></mat-divider>
+                        </mat-list>
+
+                        <button type="submit" mat-flat-button class="card-register-btn">Update</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</main>

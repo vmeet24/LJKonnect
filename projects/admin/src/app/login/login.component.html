@@ -1,0 +1,30 @@
+<div class="container login-body">
+    <div class="row justify-content-center">
+        <div class="col-md-6 mx-auto">
+            <div class="form-card">
+                <img class="form-brand" src="../../assets/images/LJKfull.png" alt="MsDhoni">
+                <form [formGroup]="loginForm" (ngSubmit)="tryLogin(loginForm.value)">
+                    <mat-form-field [hideRequiredMarker]="false">
+                        <input matInput placeholder="Login ID" formControlName="login_id" required>
+                        <mat-error>Field empty or invalid value
+                            entered.</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+                            formControlName="password" required>
+                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error>Field empty or invalid value
+                            entered.</mat-error>
+                    </mat-form-field>
+                    <div *ngIf="show" class="loading-spinner">
+                        <mat-spinner [diameter]="30"></mat-spinner>
+                    </div>
+                    <button type="submit" class="btn form-label primary-button" [class.spinner]="loading" [disabled]="loading">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

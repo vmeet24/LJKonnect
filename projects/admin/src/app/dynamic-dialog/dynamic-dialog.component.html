@@ -1,0 +1,9 @@
+<div class="dialog-message">
+    <div class="header" id="message">{{dialog.message}}
+    </div>
+
+    <div mat-dialog-actions class="dialog-action-group">
+        <button type="button" mat-button (click)="onNoClick()">No</button>
+        <button type="button" mat-button (click)="confirmEvent()" cdkFocusInitial>Yes</button>
+    </div>
+</div>

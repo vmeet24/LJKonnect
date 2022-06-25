@@ -1,0 +1,27 @@
+.header{
+    padding: 0.65em;
+    font-size: 1.25rem;
+    font-weight: bold;
+    position: relative;   
+}
+.warning{
+    background-color: yellow;
+    color: black;
+}
+.error{
+    background-color: red;
+    color: white;
+}
+.success{
+    background-color: green;
+    color: white;
+}
+.mat-dialog-container{
+    padding: 0.25em !important;
+}
+.dialog-action-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 0.65em;
+}

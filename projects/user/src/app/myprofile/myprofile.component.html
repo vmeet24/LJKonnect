@@ -1,0 +1,124 @@
+<main>
+    <app-side-nav-bar [headerTitle]="PageTitle"></app-side-nav-bar>
+    <div (swipe)="swipeSidebarToggle($event)" id="overlay"></div>
+    <div (swipe)="swipeSidebarToggle($event)" id="app" class="page-content">
+        <div class="container">
+            <div class="row row-class">
+                <div class="proflie-group">
+                    <mat-card class="profile-card">
+                        <mat-card-header style="display: flex; flex-direction: row; align-items: center;">
+                            <div mat-card-avatar class="profile-avatar"></div>
+                            <mat-card-title style="margin:3px">{{user.Name}}</mat-card-title>
+                            <mat-card-subtitle style="margin:3px">{{user.UserType}}</mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                    <div class="row" style="width: 70vw;">
+                        <div class="col-md-6">
+                            <mat-list>
+                                <mat-divider></mat-divider>
+                                <h3 mat-subheader>Basic Details</h3>
+                                <mat-divider></mat-divider>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Name:</h1>
+                                        <p *ngIf="!editProfile" class="my-profile-label" mat-line>
+                                            {{user.Name}}</p>
+                                        <div *ngIf="editProfile" mat-line class="my-profile-input">
+                                            <mat-form-field [hideRequiredMarker]="false" >
+                                                <input matInput required [value]="user.Name">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-list-item>
+                                </div>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Phone:</h1>
+                                        <p *ngIf="!editProfile" class="my-profile-label" mat-line>
+                                            +91-{{user.Phone}}</p>
+                                        <div *ngIf="editProfile" mat-line class="my-profile-input">
+                                            <mat-form-field [hideRequiredMarker]="false" >
+                                                <input matInput required [value]="user.Phone">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-list-item>
+                                </div>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Gender:</h1>
+                                        <p *ngIf="!editProfile" class="my-profile-label" mat-line>
+                                            {{user.Gender}}</p>
+                                        <div *ngIf="editProfile" mat-line class="my-profile-input">
+                                            <mat-form-field [hideRequiredMarker]="false" >
+                                                <input matInput required [value]="user.Gender">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-list-item>
+                                </div>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Email:</h1>
+                                        <p *ngIf="!editProfile" class="my-profile-label" mat-line>
+                                            {{user.Email}}</p>
+                                        <div *ngIf="editProfile" mat-line class="my-profile-input">
+                                            <mat-form-field [hideRequiredMarker]="false" >
+                                                <input matInput required [value]="user.Email">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-list-item>
+                                </div>
+                            </mat-list>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-list>
+                                <mat-divider></mat-divider>
+                                <h3 mat-subheader>College Details</h3>
+                                <mat-divider></mat-divider>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>College:</h1>
+                                        <p *ngIf="!editProfile" class="my-profile-label" mat-line>
+                                            {{user.College}}</p>
+                                        <div *ngIf="editProfile" mat-line class="my-profile-input">
+                                            <mat-form-field [hideRequiredMarker]="false" >
+                                                <input matInput required [value]="user.College">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-list-item>
+                                </div>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Branch:</h1>
+                                        <p *ngIf="!editProfile" class="my-profile-label" mat-line>
+                                            {{user.Branch}}</p>
+                                        <div *ngIf="editProfile" mat-line class="my-profile-input">
+                                            <mat-form-field [hideRequiredMarker]="false" >
+                                                <input matInput required [value]="user.Branch">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-list-item>
+                                </div>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Semester:</h1>
+                                        <p *ngIf="!editProfile" class="my-profile-label" mat-line>
+                                            {{user.Semester}}</p>
+                                        <div *ngIf="editProfile" mat-line class="my-profile-input">
+                                            <mat-form-field [hideRequiredMarker]="false" >
+                                                <input matInput required [value]="user.Semester">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-list-item>
+                                </div>
+                            </mat-list>
+                        </div>
+                    </div>
+                    <!-- <button *ngIf="editProfile" mat-flat-button class="card-register-btn"
+                        (click)="SaveProfile()">Save</button>
+                    <button *ngIf="editProfile" mat-flat-button (click)="CancelEdit()">Cancel</button>
+                    <button *ngIf="!editProfile" mat-flat-button class="card-register-btn"
+                        (click)="EditProfile()">Edit</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

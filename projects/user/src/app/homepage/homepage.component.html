@@ -1,0 +1,36 @@
+<main>
+    <app-side-nav-bar [headerTitle]="PageTitle"></app-side-nav-bar>
+    <div (swipe)="swipeSidebarToggle($event)" id="overlay"></div>
+    <div (swipe)="swipeSidebarToggle($event)" id="app" class="page-content">
+        <div class="container">
+            <div class="row row-class">
+                <div *ngIf="isNoEvents; else showEvents" style="width: 100%;">
+                    <p class="fallback-text">
+                        There is no Events. We'll notify you when one is created! <span>Happy Participating</span>
+                    </p>
+                </div>
+                <ng-template #showEvents>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 custom-card" *ngFor="let post of posts">
+                        <mat-card class="mat-card ljk-card">
+                            <img mat-card-lg-image src={{post.data().Event_Image_Link}}
+                                [class.registerationClosedImg]="checkDate(post.data().Registeration_Deadline_Date.seconds*1000)"
+                                style="width: 100%; height: 100%;">
+                            <p *ngIf="checkDate(post.data().Registeration_Deadline_Date.seconds*1000)"
+                                class="registerationClosedText">Registration Closed
+                            </p>
+                            <mat-card-title class="card-title" style="font-size:24px; white-space: pre-wrap;">{{post.data().Event_Name}}</mat-card-title>
+                            <mat-card-actions class="action-group">
+                                <button mat-flat-button (click)="register(post)" class="card-register-btn"
+                                    [disabled]="checkDate(post.data().Registeration_Deadline_Date.seconds*1000)">Register
+                                    Now</button>
+                                <a routerLink='/event-detail' class="card-read-more-btn anchor-tag"
+                                    (click)="details(post)">Read
+                                    more</a>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</main>

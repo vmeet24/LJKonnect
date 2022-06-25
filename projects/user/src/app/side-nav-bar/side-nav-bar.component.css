@@ -1,0 +1,170 @@
+/* Top Bar */
+
+.top-bar {
+    background-color: #26266A;
+    height: 50px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transform: translateX(0);
+    transition: transform 300ms ease-in;
+}
+
+.top-bar-shift {
+    transform: translateX(25vw);
+}
+
+.toggle-sidebar {
+    background: none;
+    color: white;
+    padding: 0.5rem;
+    border: none;
+}
+
+.top-bar p {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+    z-index: 111;
+}
+
+/* Top Bar */
+
+button:focus {
+    outline: 0;
+}
+
+/* Hamburger */
+
+.hamburger {
+    display: block;
+    position: relative;
+}
+
+.hamburger, .hamburger::before, .hamburger::after {
+    width: 2em;
+    height: 3px;
+    background: white;
+    transition: transform 350ms ease-in-out, opacity 200ms linear;
+}
+
+.hamburger::before, .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+}
+
+.hamburger::before {
+    bottom: 6px;
+}
+
+.hamburger::after {
+    top: 6px;
+}
+
+.top-bar-shift .hamburger {
+    transform: rotate(45deg);
+}
+
+.top-bar-shift .hamburger::before {
+    opacity: 0;
+}
+
+.top-bar-shift .hamburger::after {
+    transform: rotate(90deg) translate(-6px);
+}
+
+/* Hamburger */
+
+/* Side Bar */
+
+.brand {
+    width: 15vw;
+    padding: 1rem;
+}
+
+.sidebar {
+    z-index: 1111;
+    width: 25vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-25vw);
+    transition: transform 300ms ease-in;
+    background-color: white;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-right: 1px solid #d5d5d5;
+}
+
+.sidebar-open {
+    transform: translateX(0);
+}
+
+.custom-nav-group {
+    text-align: left;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.nav-anchor {
+    color: #26266A !important;
+    width: 100%;
+    text-decoration: none;
+    margin: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.7em;
+    transition: all ease-in 350ms;
+}
+
+.nav-anchor:hover {
+    background-color: #26266A;
+    color: white !important;
+}
+
+/* Side Bar */
+
+/* media queries */
+
+@media only screen and (max-width: 1024px) {
+    .brand {
+        width: 20vw;
+    }
+    .sidebar {
+        width: 30vw;
+        transform: translateX(-30vw);
+    }
+    .sidebar-open {
+        transform: translateX(0);
+    }
+    .top-bar-shift {
+        transform: translateX(30vw);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .brand {
+        width: 40vw;
+    }
+    .sidebar {
+        width: 75vw;
+        transform: translateX(-75vw);
+    }
+    .sidebar-open {
+        transform: translateX(0);
+    }
+    .top-bar-shift {
+        transform: translateX(75vw);
+    }
+}
+
+/* media queries */

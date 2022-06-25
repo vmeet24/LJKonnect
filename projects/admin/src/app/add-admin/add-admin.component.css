@@ -1,0 +1,74 @@
+.page-content {
+    height: 100%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    padding-bottom: 5rem;
+    width: 100vw;
+    transform: translateX(0);
+    transition: transform 300ms ease-in;
+    overflow: auto !important;
+    text-align: center;
+}
+
+.page-content-shift {
+    transform: translateX(20vw);
+    width: 75vw;
+}
+
+.row-class {
+    margin-top: 3rem;
+}
+
+.ljk-card {
+    -webkit-box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+    box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+}
+
+.custom-card {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.row-class {
+    padding-bottom: 1rem;
+}
+
+.form-container{
+    padding-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form-container > mat-form-field {
+    width: 100%;
+  }
+  .event-add-succes{
+      color: white;
+      background: green;
+  }
+  
+/* media queries */
+
+@media only screen and (max-width: 1024px) {
+    .page-content {
+        width: 100vw;
+    }
+    .page-content-shift {
+        width: 70vw;
+        transform: translateX(30vw);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .page-content {
+        width: 100vw;
+    }
+    .page-content-shift {
+        width: 25vw;
+        transform: translateX(75vw);
+    }
+}
+
+/* media queries */

@@ -1,0 +1,123 @@
+<main>
+    <app-nav-bar [headerTitle]="PageTitle"></app-nav-bar>
+    <div id="app" class="page-content page-content-shift">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form class="form-container" [formGroup]="dynamicForm" [hidden]="submitted" (ngSubmit)="onSubmit()">
+
+                        <div formArrayName="DyanmicFields" class="w100">
+                            <div class="w100" [@inOutAnimation] *ngFor="let dynamicField of getDynamicField(dynamicForm); let i = index">
+                                <div class="subEventGroup form-container" [formGroupName]="i">
+
+                                    <mat-form-field hidden [hideRequiredMarker]="false" [floatLabel]="auto">
+                                        <input matInput placeholder="FieldNumber:" required
+                                            formControlName="FieldNumber" [value]="i">
+                                        <mat-error>Field Empty.</mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                                        <input matInput placeholder="Label Name:" required formControlName="FieldLabel">
+                                        <mat-error>Field Empty.</mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <mat-select placeholder="Field Type" required
+                                            (selectionChange)="selectChange($event,i)" formControlName="FieldType">
+                                            <mat-option *ngFor="let fieldType of fieldTypes"
+                                                [(value)]="fieldType.value">{{fieldType.viewValue}}</mat-option>
+                                        </mat-select>
+                                        <mat-error>Please Select a Category.</mat-error>
+                                    </mat-form-field>
+
+
+                                    <div *ngIf="SelectedTypeDropdown[i]" formArrayName="TypeOptions"
+                                        class="w100 text-center">
+                                        <div class="w100"
+                                            *ngFor="let TypeOption of getTypeOption(dynamicField); let j=index">
+                                            <div [formGroupName]="j" class="w100">
+                                                <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                                                    <input matInput placeholder="DropDown Option Name:" required
+                                                        formControlName="TypeOption">
+                                                    <mat-error>Field Empty.</mat-error>
+                                                </mat-form-field>
+                                                <button *ngIf="getTypeOption(dynamicField).length > 1"
+                                                    (click)="removeTypeOption(i)" mat-icon-button color="warn">
+                                                    <mat-icon>cancel</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" mat-icon-button color="primary"
+                                            (click)="addTypeOption(i)">
+                                            <mat-icon>add_box</mat-icon>
+                                        </button>
+                                    </div>
+
+                                    <div *ngIf="SelectedTypeRadio[i]" formArrayName="TypeOptions"
+                                        class="w100 text-center">
+                                        <div [formGroupName]="l" class="w100"
+                                            *ngFor="let TypeOption of getTypeOption(dynamicField); let l=index">
+                                            <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                                                <input matInput placeholder="Radio Option Name:" required
+                                                    formControlName="TypeOption">
+                                                <mat-error>Field Empty.</mat-error>
+                                            </mat-form-field>
+                                            <button *ngIf="getTypeOption(dynamicField).length > 1"
+                                                (click)="removeTypeOption(i)" mat-icon-button color="warn">
+                                                <mat-icon>cancel</mat-icon>
+                                            </button>
+                                        </div>
+                                        <button type="button" mat-icon-button color="primary"
+                                            (click)="addTypeOption(i)">
+                                            <mat-icon>add_box</mat-icon>
+                                        </button>
+                                    </div>
+
+                                    <div *ngIf="SelectedTypeCheckBox[i]" formArrayName="TypeOptions"
+                                        class="w100 text-center">
+                                        <div class="w100"
+                                            *ngFor="let TypeOption of getTypeOption(dynamicField); let k=index">
+                                            <div [formGroupName]="k" class="w100">
+                                                <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                                                    <input matInput placeholder="CheckBoxOption Option Name:" required
+                                                        formControlName="TypeOption">
+                                                    <mat-error>Field Empty.</mat-error>
+                                                </mat-form-field>
+                                                <button *ngIf="getTypeOption(dynamicField).length > 1"
+                                                    (click)="removeTypeOption(i)" mat-icon-button color="warn">
+                                                    <mat-icon>cancel</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" mat-icon-button color="primary"
+                                            (click)="addTypeOption(i)">
+                                            <mat-icon>add_box</mat-icon>
+                                        </button>
+                                    </div>
+                                    <mat-slide-toggle formControlName="isRequired">Is Field Required.</mat-slide-toggle>
+
+                                    <button *ngIf="getDynamicField(dynamicForm).length > 1" mat-flat-button type="button"
+                                        class="card-warn-btn" (click)="removeDynamicField(i)">Remove Field</button>
+                                    <mat-list style="width: 100%; padding-bottom: 10px;">
+                                        <mat-divider></mat-divider>
+                                    </mat-list>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" (click)="addDynamicField(dynamicForm)" mat-flat-button
+                            class="card-register-btn">Add Form Field</button>
+                        <button type="submit" mat-flat-button class="card-register-btn">Confirm</button>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div [hidden]="!submitted" class="text-center">
+                <button mat-flat-button (click)="newEvent()" class="card-register-btn">Add Another
+                    Event</button>
+            </div>
+        </div>
+    </div>
+</main>

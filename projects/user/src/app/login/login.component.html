@@ -1,0 +1,89 @@
+<main>
+    <div class="login-page">
+        <mat-card class="mat-elevation-z12">
+            <mat-card-title style="text-align:center;"><img src="../../assets/images/LJKfull.png" class="brand-image">
+            </mat-card-title>
+            <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" [selectedIndex]="selectedIndex">
+                <mat-tab label="Log In">
+                    <mat-card-content>
+                        <form [formGroup]="loginForm" (ngSubmit)=" tryLogin(loginForm.value)">
+                            <mat-form-field>
+                                <input matInput placeholder="Email" required formControlName="Email">
+                                <mat-error>Email is required</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+                                    required formControlName="password">
+                                <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-error>Field empty or invalid value
+                                    entered.</mat-error>
+                            </mat-form-field>
+
+                            <button type="button" class="sub-btn login-button" (click)="forgot(loginForm.value)">Forgot
+                                Password</button>
+
+                            <button type="submit" mat-raised-button class="submit-btn login-button"
+                                [class.spinner]="loading[0]" [disabled]="loading[0]">
+                                Log In
+                            </button>
+                            <p style="margin:0; width: 100%; text-align: center">Or</p>
+                            <button type="button" (click)="tryGoogleLogin()" mat-raised-button
+                                class="login-button google-btn" [class.spinner]="loading[2]" [disabled]="loading[2]">
+                                Login with Google
+                            </button>
+                        </form>
+                    </mat-card-content>
+                </mat-tab>
+                <mat-tab label="Sign Up">
+                    <mat-card-content>
+                        <form [formGroup]="signupForm" (ngSubmit)="trySignup(signupForm.value)">
+                            <mat-form-field [hideRequiredMarker]="false">
+                                <input matInput placeholder="Enter Name" required formControlName="Name">
+                                <mat-error>Field empty or invalid value
+                                    entered.</mat-error>
+                            </mat-form-field>
+                            <mat-form-field [hideRequiredMarker]="false">
+                                <input matInput placeholder="Email" required formControlName="Email">
+                                <mat-error>Field empty or invalid value
+                                    entered.</mat-error>
+                            </mat-form-field>
+                            <mat-form-field [hideRequiredMarker]="false">
+                                <input matInput placeholder="Enter Phone" required formControlName="Phone">
+                                <mat-error>Field empty or invalid value
+                                    entered.</mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+                                    required formControlName="password">
+                                <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-error>Field empty or invalid value
+                                    entered.</mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="Re-Enter your password" [type]="hide ? 'password' : 'text'"
+                                    formControlName="rePassword">
+                                <button mat-icon-button matSuffix (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <button type="submit" mat-raised-button class="submit-btn login-button"
+                                [class.spinner]="loading[1]" [disabled]="loading[1]">Sign Up</button>
+                            <p style="margin:0; width: 100%; text-align: center">Or</p>
+                            <button type="button" (click)="tryGoogleLogin()" mat-raised-button
+                                class="login-button google-btn" [class.spinner]="loading[2]" [disabled]="loading[2]">
+                                Signup with Google
+                            </button>
+                        </form>
+                    </mat-card-content>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card>
+    </div>

@@ -1,0 +1,32 @@
+<main>
+    <app-side-nav-bar [headerTitle]="PageTitle"></app-side-nav-bar>
+    <div (swipe)="swipeSidebarToggle($event)" id="overlay"></div>
+    <div (swipe)="swipeSidebarToggle($event)" id="app" class="page-content">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2 col-sm-1 col-xs-1"></div>
+                <div class="col-md-8 col-sm-10 col-xs-10">
+                    <form [formGroup]="contactForm" class="form-container mat-elevation-z8" (ngSubmit)="sendMessage()">
+                        <h1>Get in Touch!</h1>
+                        <!-- <mat-form-field>
+                            <input matInput placeholder="Name" required formControlName="name">
+                            <mat-error>Name is required</mat-error>
+                        </mat-form-field> -->
+                        <mat-form-field>
+                            <input matInput placeholder="Email" required formControlName="email">
+                            <mat-error>Email is required</mat-error>
+                        </mat-form-field>
+                        <section fxLayout="column" fxLayoutAlign="start stretch" class="w100">
+                            <mat-form-field fxFlex class="w100">
+                                <textarea matInput class="w100" matTextareaAutosize [matAutosizeMinRows]="min"
+                                formControlName="message" [matAutosizeMaxRows]="max" placeholder="Message"></textarea>
+                            </mat-form-field>
+                        </section>
+                        <button type="submit" mat-flat-button class="card-register-btn">Send Message</button>
+                    </form>
+                </div>
+                <div class="col-md-2 col-sm-1 col-xs-1"></div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,86 @@
+<h1 mat-dialog-title>
+    Registration Details:
+</h1>
+<mat-dialog-content>
+    <p style="font-size: 2rem;">
+        <span style="font-weight: bold; font-size: 2rem;">TokenID :</span> {{tokenID}}
+    </p>
+    <div style="padding-top: 0.5em; padding-bottom: 0.5em; display: flex; flex-direction: row; align-items: center;">
+        <p style="margin: 0 0.5em 0 0;">Payment Status: </p>
+        <mat-chip-list>
+            <mat-chip *ngIf="isPaid; else pending" style="background-color: green; font-size: 0.75em;" selected>Fee paid
+            </mat-chip>
+            <ng-template #pending>
+                <mat-chip color="warn" style="font-size: 0.75em;" selected>Payment Pending
+                </mat-chip>
+            </ng-template>
+        </mat-chip-list>
+    </div>
+    <p>
+        <span style="font-weight: bold; font-size: 1rem;">Pending Fee :</span> {{pendingFee}}
+    </p>
+    <p>
+        <span style="font-weight: bold; font-size: 1rem;">Total Fee :</span> {{totalFee}}
+    </p>
+
+    <div *ngFor="let label of FormFieldLabel; let i = index">
+        <p>
+            <span style="font-weight: bold;">{{label}}:</span> {{FormFieldValue[i]}}
+        </p>
+    </div>
+    <div *ngIf="hasSubEvent; else teamdetails">
+        <!-- Separator -->
+        <mat-list style="width: 100%; padding-bottom: 10px;">
+            <mat-divider></mat-divider>
+        </mat-list>
+        <p style="font-weight: bold; text-align: center; margin: 0">Registered Sub Events</p>
+        <!-- Separator -->
+        <mat-list style="width: 100%; padding-bottom: 10px;">
+            <mat-divider></mat-divider>
+        </mat-list>
+        <div *ngFor="let eve of subEvent; let j = index">
+            <h2>{{eve.SubEventName}}</h2>
+            <!-- Separator -->
+            <mat-list style="width: 100%; padding-bottom: 10px;">
+                <mat-divider></mat-divider>
+            </mat-list>
+            <div *ngIf="isSubEventTypeTeam[j]">
+                <h4>Team Details</h4>
+                <div *ngFor="let detail of eve.TeamDetails; let k = index" class="container">
+                    <div *ngIf="emptyTeamDetail(detail)" class="row">
+                        <p class="col-md-4">
+                            <span style="font-weight: bold;">{{k+1}}. Name:</span> {{detail.Team_Member_Name}}
+                        </p>
+                        <p class="col-md-4">
+                            <span style="font-weight: bold;">Email:</span> {{detail.Team_Member_Email}}
+                        </p>
+                        <p class="col-md-4">
+                            <span style="font-weight: bold;">Phone:</span> {{detail.Team_Member_Phone}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #teamdetails>
+        <div *ngIf="isTeamEvent">
+            <h4>Team Details</h4>
+            <div *ngFor="let detail of TeamDetail; let k = index" class="container">
+                <div *ngIf="emptyTeamDetail(detail)" class="row">
+                    <p class="col-md-4">
+                        <span style="font-weight: bold;">{{k+1}}. Name:</span> {{detail.Team_Member_Name}}
+                    </p>
+                    <p class="col-md-4">
+                        <span style="font-weight: bold;">Email:</span> {{detail.Team_Member_Email}}
+                    </p>
+                    <p class="col-md-4">
+                        <span style="font-weight: bold;">Phone:</span> {{detail.Team_Member_Phone}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</mat-dialog-content>
+<div mat-dialog-actions class="dialog-action-group">
+    <button type="button" mat-flat-button color="warn" (click)="onNoClick()">Close</button>
+</div>

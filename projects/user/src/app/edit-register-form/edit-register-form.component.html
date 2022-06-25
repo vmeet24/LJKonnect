@@ -1,0 +1,204 @@
+<main>
+    <app-side-nav-bar [headerTitle]="PageTitle"></app-side-nav-bar>
+    <div (swipe)="swipeSidebarToggle($event)" id="overlay"></div>
+    <div (swipe)="swipeSidebarToggle($event)" id="app" class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-1 col-xs-1"></div>
+                <div class="col-md-8 col-sm-10 col-xs-10">
+                    <form (ngSubmit)="RegisterUser()" [formGroup]="RegisterForm" class="form-container">
+                        <div class="w100" *ngFor="let formfield of formDetails">
+
+                            <!-- Text Group -->
+                            <mat-form-field class="w100" *ngIf="formfield.FieldType === 'Text'"
+                                [hideRequiredMarker]="!formfield.isRequired">
+                                <input [formControlName]="formfield.FieldLabel" matInput
+                                    [placeholder]="formfield.FieldLabel" [required]="formfield.isRequired">
+                                <mat-error>Field Empty</mat-error>
+                            </mat-form-field>
+
+
+                            <!-- DropDrown Group -->
+                            <mat-form-field class="w100" *ngIf="formfield.FieldType === 'Dropdown'">
+                                <mat-select [formControlName]="formfield.FieldLabel"
+                                    [placeholder]="formfield.FieldLabel" [required]="formfield.isRequired">
+                                    <mat-option *ngFor="let dropOption of formfield.TypeOptions"
+                                        [(value)]="dropOption.TypeOption">{{dropOption.TypeOption}}</mat-option>
+                                </mat-select>
+                                <mat-error></mat-error>
+                            </mat-form-field>
+
+                            <!-- Radio Group -->
+                            <div class="w100" *ngIf="formfield.FieldType === 'Radio'"
+                                style="display: flex; flex-direction: column; align-items: flex-start;">
+                                <label id="RadioGroupLabel" style="color: #757575;"
+                                    [class.required]="formfield.isRequired">{{formfield.FieldLabel}}</label>
+                                <mat-radio-group [formControlName]="formfield.FieldLabel"
+                                    aria-labelledby="RadioGroupLabel" class="example-radio-group"
+                                    [required]="formfield.isRequired">
+                                    <mat-radio-button class="example-radio-button"
+                                        *ngFor="let radioOption of formfield.TypeOptions"
+                                        [(value)]="radioOption.TypeOption">
+                                        {{radioOption.TypeOption}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <!-- CheckBox Group -->
+
+                            <div class="w100" *ngIf="formfield.FieldType === 'CheckBox'"
+                                style="display: flex; flex-direction: column; align-items: flex-start;">
+                                <label style="color: #757575;"
+                                    [class.required]="formfield.isRequired">{{formfield.FieldLabel}}</label>
+                                <mat-checkbox [formControlName]="formfield.FieldLabel"
+                                    *ngFor="let checkOption of formfield.TypeOptions" [required]="formfield.isRequired"
+                                    [(value)]="checkOption.TypeOption"
+                                    style="width: 100%; white-space: break-spaces; text-align: left;">
+                                    {{checkOption.TypeOption}}
+                                </mat-checkbox>
+                            </div>
+
+                            <!-- Separator -->
+                            <mat-list style="width: 100%; padding-bottom: 10px;">
+                                <mat-divider></mat-divider>
+                            </mat-list>
+                        </div>
+
+                        <div class="w100" *ngIf="mainEvent.Contains_SubEvent === 'No'; else subEventsForm">
+                            <h4>Team Details</h4>
+                            <div formArrayName="TeamDetails"
+                                *ngFor="let team of getArrayfromNum(mainEvent.Event_Team_Size_max-1); let j = index">
+                                <div class="w100" [formGroupName]="j">
+                                    <p>Member {{j}}</p>
+                                    <div class="w100 row center-flex">
+
+                                        <mat-form-field class="pad0 col-md-3"
+                                            [hideRequiredMarker]="!isInputRequired(mainEvent.Event_Team_Size_min-1,j)">
+                                            <input matInput formControlName="Team_Member_Name"
+                                                placeholder="Team Member Name :"
+                                                [required]="isInputRequired(mainEvent.Event_Team_Size_min-1,j)">
+                                            <mat-error>Field Empty</mat-error>
+                                        </mat-form-field>
+                                        <div class="col-md-1"></div>
+                                        <mat-form-field class="pad0 col-md-3"
+                                            [hideRequiredMarker]="!isInputRequired(mainEvent.Event_Team_Size_min-1,j)">
+                                            <input matInput formControlName="Team_Member_Email"
+                                                placeholder="Team Member Email :"
+                                                [required]="isInputRequired(mainEvent.Event_Team_Size_min-1,j)">
+                                            <mat-error>Field Empty</mat-error>
+                                        </mat-form-field>
+                                        <div class="col-md-1"></div>
+                                        <mat-form-field class="pad0 col-md-3"
+                                            [hideRequiredMarker]="!isInputRequired(mainEvent.Event_Team_Size_min-1,j)">
+                                            <input matInput formControlName="Team_Member_Phone"
+                                                placeholder="Team Member Phone :"
+                                                [required]="isInputRequired(mainEvent.Event_Team_Size_min-1,j)">
+                                            <mat-error>Field Empty</mat-error>
+                                        </mat-form-field>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5>Total Registration Fee: {{RegistrationFeeTotal}}</h5>
+                            <h5>Pending Registration Fee: {{PendingFeeTotal}}</h5>
+                        </div>
+
+                        <ng-template #subEventsForm>
+                            <h1>Sub Events</h1>
+
+                            <div class="w100" formArrayName="RegisteredSubEvents">
+                                <table class="w100">
+                                    <thead>
+                                        <tr>
+                                            <th>Tick</th>
+                                            <th>Name</th>
+                                            <th>Fee</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let subevent of subEvents; let i = index"
+                                            [formGroupName]="i">
+                                            <tr id="row-{{i}}">
+                                                <td>
+                                                    <mat-checkbox id="check{{i}}" [value]="subevent.Event_Name" [disabled]="isCheckedBox[i]" [checked]="isCheckedBox[i]"
+                                                        (change)="onSubEventCheckBoxChange($event,i,subevent)">
+                                                    </mat-checkbox>
+                                                </td>
+                                                <td>
+                                                    {{subevent.Event_Name}}
+
+                                                </td>
+                                                <td>
+                                                    {{subevent.RegistrationFee}}
+                                                </td>
+                                            </tr>
+                                            <ng-container *ngIf="showInput[i]" formArrayName="TeamDetails">
+                                                <tr *ngFor="let team of getArrayfromNum(subevent.Event_Team_Size_max-1); let j = index"
+                                                    [formGroupName]="j" [@inOutAnimation]>
+                                                    <td colspan="3">
+                                                        <h6>Team Member {{j+1}}</h6>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <mat-form-field class="w80"
+                                                                    [hideRequiredMarker]="!isInputRequired(subevent.Event_Team_Size_min-1,j)">
+                                                                    <input matInput formControlName="Team_Member_Name"
+                                                                        placeholder="Name:"
+                                                                        [required]="isInputRequired(subevent.Event_Team_Size_min-1,j)">
+                                                                    <mat-error>Field Empty</mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <mat-form-field class="w80"
+                                                                    [hideRequiredMarker]="!isInputRequired(subevent.Event_Team_Size_min-1,j)">
+                                                                    <input matInput formControlName="Team_Member_Email"
+                                                                        placeholder="Email:"
+                                                                        [required]="isInputRequired(subevent.Event_Team_Size_min-1,j)">
+                                                                    <mat-error>Field Empty</mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <mat-form-field class="w80"
+                                                                    [hideRequiredMarker]="!isInputRequired(subevent.Event_Team_Size_min-1,j)">
+                                                                    <input matInput formControlName="Team_Member_Phone"
+                                                                        placeholder="Phone:"
+                                                                        [required]="isInputRequired(subevent.Event_Team_Size_min-1,j)">
+                                                                    <mat-error>Field Empty</mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+
+                                        </ng-container>
+
+                                        <tr class="total">
+                                            <td colspan="2">
+                                                <h4>Total Fee</h4>
+                                            </td>
+                                            <td>
+                                                <h4>{{RegistrationFeeTotal}}</h4>
+                                            </td>
+                                        </tr>
+                                        <tr class="total">
+                                            <td colspan="2">
+                                                <h4>Pending Fee</h4>
+                                            </td>
+                                            <td>
+                                                <h4>{{PendingFeeTotal}}</h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-template>
+                        <button mat-flat-button [disabled]="disableRegisterBtn"
+                            class="card-register-btn">Register</button>
+                    </form>
+                </div>
+                <div class="col-md-2 col-sm-1 col-xs-1"></div>
+            </div>
+        </div>
+    </div>
+</main>

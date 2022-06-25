@@ -1,0 +1,17 @@
+<div class="sidebar">
+    <img class="brand" src="/assets/images/ljkBrand.png">
+    <div class="custom-nav-group">
+        <a routerLink='/homepage' class="nav-anchor">Events</a>
+        <a routerLink='/myprofile' class="nav-anchor">My Profile</a>
+        <a routerLink='/myevents' class="nav-anchor">My Events</a>
+        <a routerLink='/contact-us' class="nav-anchor">Contact Us</a>
+        <a routerLink='/about-us' class="nav-anchor">About Us</a>
+        <a class="nav-anchor" (click)="logout()">Logout</a>
+    </div>
+</div>
+<div class="top-bar">
+    <button class="toggle-sidebar" (click)="toggleSideBar()">
+        <span class="hamburger"></span>
+    </button>
+    <p>{{headerTitle}}</p>
+</div>

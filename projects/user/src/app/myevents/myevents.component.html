@@ -1,0 +1,70 @@
+<main>
+    <app-side-nav-bar [headerTitle]="PageTitle"></app-side-nav-bar>
+    <div (swipe)="swipeSidebarToggle($event)" id="overlay"></div>
+    <div (swipe)="swipeSidebarToggle($event)" id="app" class="page-content">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div *ngIf="isNoEvents; else showEvents" style="width: 100%;">
+                        <p class="fallback-text">
+                            You have not yet registered in any events. <br>
+                            <button mat-raised-button color="primary" routerLink='/homepage'>
+                                Click here!
+                            </button> <br>
+                            to view events.
+                        </p>
+                    </div>
+                    <ng-template #showEvents>
+                        <mat-accordion>
+                            <mat-expansion-panel class="text-center" hideToggle
+                                *ngFor="let event of userEvents; let i = index" (opened)="setStep(i)">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{event.Event}}
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="my-event-accord-description">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h4>Date:</h4>
+                                                <p *ngIf="oneDayEvent(userEventDetails[i].Event_Start_Date,userEventDetails[i].Event_End_Date); else twoDayEvent"
+                                                    style="padding: 0;">
+                                                    {{userEventDetails[i].Event_Start_Date.seconds* 1000 | date:'fullDate'}}
+                                                </p>
+                                                <ng-template #twoDayEvent>
+                                                    <p style="padding: 0;">
+                                                        {{userEventDetails[i].Event_Start_Date.seconds* 1000 | date:'dd'}}
+                                                        -
+                                                        {{userEventDetails[i].Event_End_Date.seconds* 1000 | date:'d MMMM, yyyy'}}
+                                                    </p>
+                                                </ng-template>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h4>Venue:</h4>
+                                                <p>{{userEventDetails[i].Event_Venue}}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h4>Time:</h4>
+                                                <p>{{userEventDetails[i].Event_Time}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <mat-action-row>
+                                        <button mat-button color="primary" (click)="dialogOpen(event)">Read
+                                            More</button>
+                                    </mat-action-row>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </ng-template>
+
+
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</main>

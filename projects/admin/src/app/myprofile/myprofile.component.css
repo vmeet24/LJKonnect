@@ -1,0 +1,48 @@
+.row-class{
+    margin: 0;
+}
+.profile-card{
+    box-shadow: none !important;
+}
+.page-content {
+    height: 100%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    padding-bottom: 5rem;
+    width: 100vw;
+    transform: translateX(0);
+    transition: transform 300ms ease-in;
+    overflow: auto !important;
+    text-align: center;
+}
+
+.page-content-shift {
+    transform: translateX(20vw);
+    width: 80vw;
+}
+.profile-avatar{
+        background-image: url('https://image.flaticon.com/icons/svg/12/12580.svg');
+        background-size: cover;
+        padding: 0;
+}
+.profile-group{
+    padding-top: 2vh;
+    width: 100%;
+}
+.profile-label h1{
+    font-weight: bold;
+    color:  #26266A;
+}
+.my-profile-input mat-form-field{
+    width:100%;
+}
+.link-caption {
+    color: grey;
+    padding-left: 5px;
+  }
+  .event-list{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }

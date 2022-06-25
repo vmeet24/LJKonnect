@@ -1,0 +1,43 @@
+<main>
+    <app-nav-bar [headerTitle]="PageTitle"></app-nav-bar>
+    <div id="app" class="page-content page-content-shift">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form class="form-container" [formGroup]="addAdminForm" (ngSubmit)="onSubmit(addAdminForm.value)">
+                        <mat-form-field [hideRequiredMarker]="false">
+                            <input matInput placeholder="Admin ID/ Login ID:" required id="name"
+                            formControlName="adminId" >
+                            <mat-error>Field empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Enter password:" [type]="hide ? 'password' : 'text'"
+                                id="password" name="Admin_Password" formControlName="adminPassword" required>
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-hint align="start">Your Password is safe with us.</mat-hint>
+                            <mat-error>Field empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false">
+                            <input matInput placeholder="Phone Number:" required id="Admin_Phone"
+                            formControlName="adminPhone">
+                            <mat-error>Field empty.</mat-error>
+                        </mat-form-field>
+
+                        <div *ngIf="show" class="loading-spinner">
+                            <mat-spinner [diameter]="30"></mat-spinner>
+                        </div>
+
+                        <button type="submit" mat-flat-button class="card-register-btn">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</main>

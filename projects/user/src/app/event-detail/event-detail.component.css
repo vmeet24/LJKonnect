@@ -1,0 +1,31 @@
+.registerationClosedImg {
+    opacity: 0.4;
+}
+
+.registerationClosedText {
+    position: absolute;
+    font-size: 1rem;
+    top: 50%;
+    white-space: nowrap;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: red;
+    background: white;
+    left: 50%;
+    line-height: 1.5em;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0.5em;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 1024px) {}
+
+@media only screen and (max-width: 600px) {}
+
+@media only screen and (max-width: 300px) {}
+
+@media only screen and (max-width: 400px) {}
+
+/* MEDIA QUERIES */

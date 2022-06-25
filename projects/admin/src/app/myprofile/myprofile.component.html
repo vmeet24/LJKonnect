@@ -1,0 +1,74 @@
+<main (swipe)="swipeSidebarToggle($event)">
+    <app-nav-bar [headerTitle]="PageTitle"></app-nav-bar>
+    <div id="app" class="page-content page-content-shift">
+        <div class="container">
+            <div class="row row-class">
+                <div class="proflie-group">
+                    <mat-card class="profile-card">
+                        <mat-card-header style="display: flex; flex-direction: row; align-items: center;">
+                            <div mat-card-avatar class="profile-avatar"></div>
+                            <mat-card-title style="margin:3px">{{name}}</mat-card-title>
+                            <mat-card-subtitle style="margin:3px">Admin</mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                    <div class="row row-class" style="margin-bottom: 5rem; width: 70vw;">
+                        <div class="col-md-12">
+                            <mat-list style="text-align: left;">
+                                <mat-divider></mat-divider>
+                                <h3 mat-subheader>Admin Details</h3>
+                                <mat-divider></mat-divider>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Email:</h1>
+                                        <p class="my-profile-label" mat-line>{{admin.login_id}}</p>
+                                    </mat-list-item>
+                                </div>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Phone:</h1>
+                                        <p class="my-profile-label" mat-line>{{admin.phone}}</p>
+                                    </mat-list-item>
+                                </div>
+                                <div class="profile-group">
+                                    <mat-list-item class="profile-label">
+                                        <h1 mat-line>Parent Admin:</h1>
+                                        <p class="my-profile-label" mat-line>{{admin.parent_id}}</p>
+                                    </mat-list-item>
+                                </div>
+                            </mat-list>
+                        </div>
+                        <div class="col-md-12 custom-card">
+                            <mat-list>
+                                <mat-divider></mat-divider>
+                                <h3 mat-subheader>Added Event Details</h3>
+                                <mat-divider></mat-divider>
+                                <!-- 
+                                <div class="row" *ngFor="let name of added_events">
+                                    <div class="col-md-6">
+                                        <mat-card class="mat-card ljk-card">
+                                           
+                                            <mat-card-title routerLink="/event-detail/{{name}}" class="card-title" style="cursor:pointer;">{{name}}</mat-card-title>
+                                           
+                                        </mat-card>
+                                    </div>
+                                </div> -->
+
+
+                                <mat-nav-list style="display: flex;flex-direction: column; align-items: flex-start;">
+                                    <mat-list-item *ngFor="let name of added_events">
+                                        <a matLine routerLink="/admin/event-detail/{{name}}" class="event-list">
+                                            <mat-icon style="color:  #F15F22;">event</mat-icon>
+                                            <h5 class="link-caption" style="margin:0; color: #26266A;">{{ name}}</h5>
+                                        </a>
+                                        <!-- <h4 matline> {{ link.info }} </h4> -->
+                                    </mat-list-item>
+                                </mat-nav-list>
+
+                            </mat-list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

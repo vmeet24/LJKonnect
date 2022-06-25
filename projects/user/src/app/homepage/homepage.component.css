@@ -1,0 +1,77 @@
+.ljk-card {
+    /* box-shadow: 2px 1px 1px 0px rgba(0,0,0,0.3) !important; */
+    -webkit-box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+    box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+}
+
+.custom-card {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.registerationClosedImg {
+    opacity: 0.4;
+}
+
+.registerationClosedText {
+    position: absolute;
+    font-size: 1rem;
+    top: 32%;
+    white-space: nowrap;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: red;
+    background: white;
+    left: 50%;
+    line-height: 1.5em;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0.5em;
+}
+
+.row-class {
+    padding-bottom: 1rem;
+}
+
+mat-card-title {
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.fallback-text {
+    margin: 0.25em 0.5em 0.25em 1em;
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 1024px) {
+    mat-card-title {
+        font-size: 1.25rem;
+    }
+    .registerationClosedText {
+        top: 30%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .registerationClosedText {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 300px) {}
+
+@media only screen and (max-width: 400px) {
+    .registerationClosedText {
+        font-size: 1.25rem;
+        top: 32%;
+    }
+}
+
+/* MEDIA QUERIES */

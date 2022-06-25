@@ -1,0 +1,157 @@
+<main>
+    <app-nav-bar [headerTitle]="PageTitle"></app-nav-bar>
+    <div id="app" class="page-content page-content-shift">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <header class="text-center" style="padding-top:20px;">
+                        <img src={{post.data().Event_Image_Link}} class="masthead">
+                    </header>
+                </div>
+                <div class="col-md-2"></div>
+                <section class="col-md-12 col-sm-12 col-xs-12 col-lg-12 text-center">
+                    <div class="container">
+                        <h1 class="font-weight-bold pt1em">{{post.data().Event_Name}}</h1>
+                        <p class="para-with-line-break">
+                            {{post.data().Event_Description}}
+                        </p>
+                        <p>
+                            <span style="font-weight: bold; ">Note: </span>{{post.data().Event_Disclaimer}}
+                        </p>
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4>Date:</h4>
+                                    <p style="padding: 0;">
+                                        {{post.data().Event_Start_Date.seconds* 1000 | date:'fullDate'}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Venue:</h4>
+                                    <p>{{post.data().Event_Venue}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Time:</h4>
+                                    <p>{{post.data().Event_Time}}</p>
+                                </div>
+                                <div *ngIf="post.data().Contains_SubEvent === 'Yes'" class="container">
+                                    <h1 class="font-weight-bold">Sub-Events</h1>
+                                    <mat-accordion>
+                                        <mat-expansion-panel *ngFor="let post of subposts; let i = index"
+                                            class="text-center" (opened)="setStep(i)" hideToggle>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    {{post.data().Event_Name}}
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+
+                                            <div class="my-event-accord-description">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <h4>Date:</h4>
+                                                            <p style="padding: 0;">
+                                                                {{post.data().Event_Start_Date.seconds* 1000 | date:'fullDate'}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <h4>Venue:</h4>
+                                                            <p>{{post.data().Event_Venue}}</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <h4>Type:</h4>
+                                                            <p>{{post.data().Event_Type}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <mat-action-row>
+
+                                                    <div *ngIf="isEditable">
+                                                        <button mat-button color="primary"
+                                                            (click)="updateSubEvents(post.id)">
+                                                            <mat-icon style="font-size: 1.4rem;">edit</mat-icon>Edit-Sub
+                                                            Event
+                                                        </button>
+                                                        <button mat-flat-button
+                                                            (click)="getuserdata(post.id,post.data())"
+                                                            class="card-register-btn">
+                                                            Download UserData
+                                                        </button>
+                                                    </div>
+                                                </mat-action-row>
+                                            </div>
+
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div *ngIf="isEditable" class="btn-grp">
+                                        <button mat-button mat-raised-button color="primary"
+                                            [matMenuTriggerFor]="EditOptions" yPosition="below" xPosition="after">
+                                            <mat-icon style="font-size: 1.4rem;">settings</mat-icon>
+                                            Options
+                                        </button>
+                                        <mat-menu yPosition="above" xPosition="after" #EditOptions="matMenu">
+                                            <button mat-menu-item (click)="updateform()">
+                                                <mat-icon style="font-size: 1.4rem;">edit</mat-icon>
+                                                Edit
+                                            </button>
+                                            <button mat-menu-item (click)="ConfirmRegistration()">
+                                                <mat-icon style="font-size: 1.4rem;">verified_user</mat-icon>
+                                                Confirm Registrations
+                                            </button>
+                                            <button mat-menu-item (click)="GetUsers()">
+                                                <mat-icon style="font-size: 1.4rem;">supervised_user_circle</mat-icon>
+                                                Get Registered Users
+                                            </button>
+                                            <button mat-menu-item (click)="addsub()">
+                                                <mat-icon style="font-size: 1.4rem;">add_box</mat-icon>
+                                                Add Sub Event
+                                            </button>
+                                        </mat-menu>
+
+                                        <!-- <button mat-flat-button (click)="updateform()" class="card-register-btn">
+                                            <mat-icon style="font-size: 1.4rem;">edit</mat-icon>Edit
+                                        </button> -->
+
+                                        <button mat-stroked-button id="disableBtn" [style.border-color]="btnColour"
+                                            [style.color]="btnColour" (click)="disableEvent()">
+                                            <mat-icon *ngIf="post.data().Is_Active; else enableIcon"
+                                                style="font-size: 1.4rem;">block</mat-icon>
+                                            <ng-template #enableIcon>
+                                                <mat-icon style="font-size: 1.4rem;">loop</mat-icon>
+                                            </ng-template>
+                                            {{active}}
+                                        </button>
+                                        <!-- <button mat-flat-button (click)="ConfirmRegistration()"
+                                            class="card-register-btn">
+                                            Confirm Registrations
+                                        </button>
+                                        <button mat-flat-button (click)="GetUsers()" class="card-register-btn">
+                                            Show Users
+                                        </button>
+                                        <button mat-flat-button (click)="addsub()" class="card-register-btn">
+                                            AddSubEvent
+                                        </button> -->
+                                        <div *ngIf="post.data().Contains_SubEvent === 'No'">
+                                            <button mat-flat-button (click)="getuser_solo_data()"
+                                                class="card-register-btn">
+                                                Download UserData
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>

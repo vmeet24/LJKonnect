@@ -1,0 +1,18 @@
+<div class="sidebar sidebar-open">
+    <img class="brand" src="../../assets/images/ljkBrand.png">
+    <div class="custom-nav-group">
+        <a routerLink="/admin/homepage" class="nav-anchor">Events</a>
+        <a routerLink="/admin/add-event" class="nav-anchor">Add Events</a>
+        <a routerLink="/admin/add-admin" *ngIf="canAddAdmin()" class="nav-anchor">Add Admin</a>
+        <a routerLink="/admin/myprofile" class="nav-anchor">My Profile</a>
+        <a class="nav-anchor" (click)=logout()>Logout</a>
+    </div>
+</div>
+<div class="top-bar top-bar-shift">
+    <!-- <button class="toggle-sidebar" (click)="toggleSideBar()">
+        <span class="hamburger"></span>
+    </button> -->
+    <p>{{headerTitle}}</p>
+
+    <p *ngIf="showWelcomeText"><span>Welcome,</span> {{name}}</p>
+</div>

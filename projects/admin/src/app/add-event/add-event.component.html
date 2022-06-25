@@ -1,0 +1,163 @@
+<main>
+    <app-nav-bar [headerTitle]="PageTitle"></app-nav-bar>
+    <div id="app" class="page-content page-content-shift">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form [formGroup]="addeventForm" class="form-container" (ngSubmit)="onSubmit()">
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+
+                            <input matInput placeholder="Event Name:" required formControlName="Event_Name">
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <section fxLayout="column" fxLayoutAlign="start stretch" class="w100">
+                            <mat-form-field fxFlex class="w100" [hideRequiredMarker]="false">
+                                <textarea matInput class="w100" matTextareaAutosize [matAutosizeMinRows]="min"
+                                    formControlName="Event_Description" [matAutosizeMaxRows]="max"
+                                    placeholder="Description:" required></textarea>
+                            </mat-form-field>
+                        </section>
+
+                        <section fxLayout="column" fxLayoutAlign="start stretch" class="w100">
+                            <mat-form-field fxFlex class="w100" [hideRequiredMarker]="true">
+                                <textarea matInput class="w100" matTextareaAutosize [matAutosizeMinRows]="min"
+                                    formControlName="Event_Disclaimer" [matAutosizeMaxRows]="max"
+                                    placeholder="Special Note:"></textarea>
+                            </mat-form-field>
+                        </section>
+
+                        <mat-form-field>
+                            <ngx-mat-file-input [attr.floatLabel]="never" placeholder="Event Image" required
+                                formControlName="Event_Image_Link" name="file" [accept]="'.jpg, .png, .jpeg'"
+                                (change)="fileChangeEvent($event)">
+                            </ngx-mat-file-input>
+
+                            <mat-icon style="cursor: pointer;" matSuffix>folder</mat-icon>
+                            <mat-error>Please Select an image.</mat-error>
+                        </mat-form-field>
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                            [aspectRatio]="16 / 9" [resizeToWidth]="1024" format="png"
+                            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+                        </image-cropper>
+                        <img [src]="croppedImage" *ngIf="showCropper" style="width: 75%; height: 55%;" />
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput [matDatepicker]="picker1" placeholder="Event Start Date" id="start_date"
+                                required formControlName="Event_Start_Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker [startAt]="" touchUi #picker1></mat-datepicker>
+                            <mat-error>Please Select a Date.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput [matDatepicker]="picker2" placeholder="Event End Date" required
+                                formControlName="Event_End_Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #picker2></mat-datepicker>
+                            <mat-error>Please Select a Date.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput placeholder="Time:" [ngxTimepicker]="picker" required
+                                formControlName="Event_Time">
+                            <ngx-material-timepicker #picker></ngx-material-timepicker>
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput placeholder="Venue:" required formControlName="Event_Venue">
+                            <mat-error>Field Empty.</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select placeholder="Year of Event" required (selectionChange)="selectChange($event,i)"
+                                formControlName="Event_Year">
+                                <mat-option *ngFor="let Year of Years" [(value)]="Year.value">{{Year.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Please Select a Year.</mat-error>
+                        </mat-form-field>
+
+                        <div class="w100" style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <label id="example-radio-group-label" style="columns: #757575;">Contains Sub
+                                Events?</label>
+                            <mat-radio-group aria-labelledby="example-radio-group-label"
+                                formControlName="Contains_SubEvent" class="example-radio-group">
+                                <mat-radio-button (change)="EventRadioChange($event)" class="example-radio-button"
+                                    *ngFor="let EventRadioOption of EventRadioOptions" [(value)]="EventRadioOption">
+                                    {{EventRadioOption}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+
+                        <div class="w100" style="display: flex; flex-direction: column; align-items: flex-start;"
+                            *ngIf="MainEventDetail">
+                            <label id="subEventFeeRadioGroupLabel" style="color: #757575;">Does the Event have
+                                Registration Fee?</label>
+                            <mat-radio-group aria-labelledby="subEventFeeRadioGroupLabel"
+                                formControlName="HasRegistrationFee" class="example-radio-group">
+                                <mat-radio-button class="example-radio-button" (change)="FeeRadioChange($event)"
+                                    *ngFor="let EventFeeRadio of EventFeeRadios" [(value)]="EventFeeRadio">
+                                    {{EventFeeRadio}}</mat-radio-button>
+                            </mat-radio-group>
+
+
+                            <mat-form-field *ngIf="EventFeeInput" [hideRequiredMarker]="false" [floatLabel]="auto">
+                                <input matInput placeholder="Registration Fee:" required
+                                    formControlName="RegistrationFee">
+                                <mat-error>Field Empty.</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-select placeholder="Event Type" formControlName="Event_Type" required
+                                    (selectionChange)="selectChange($event)">
+                                    <mat-option *ngFor="let eventType of eventTypes" [(value)]="eventType.value">
+                                        {{eventType.viewValue}}</mat-option>
+                                </mat-select>
+                                <mat-error>Please Select a Category.</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field *ngIf="selectedType === 'TeamEvent'" [hideRequiredMarker]="false"
+                                [floatLabel]="auto">
+                                <input matInput placeholder="Team Size:" required formControlName="Event_Team_Size_max">
+                                <mat-error>Field Empty.</mat-error>
+                            </mat-form-field>
+
+
+                            <mat-form-field *ngIf="selectedType === 'TeamEvent'" [hideRequiredMarker]="false"
+                                [floatLabel]="auto">
+                                <input matInput placeholder="Team Size:" required formControlName="Event_Team_Size_min">
+                                <mat-error>Field Empty.</mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <mat-form-field [hideRequiredMarker]="false" [floatLabel]="auto">
+                            <input matInput [matDatepicker]="picker3" placeholder="Event Registeration Deadline:"
+                                id="reg_deadline" required formControlName="Registration_Deadline_Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #picker3></mat-datepicker>
+                            <mat-error>Please Select a Date.</mat-error>
+                        </mat-form-field>
+
+
+                        <!-- <button type="button" *ngIf="SubEventSelectType" mat-flat-button class="card-register-btn"
+                            (click)="onSubmit()">Next</button> -->
+                        <button *ngIf="isForward; else addEvent" mat-flat-button type="submit"
+                            class="card-register-btn">Forward</button>
+                        <ng-template #addEvent>
+                            <button *ngIf="!SubEventSelectType" mat-flat-button type="submit"
+                                class="card-register-btn">Add Event</button>
+                        </ng-template>
+
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</main>

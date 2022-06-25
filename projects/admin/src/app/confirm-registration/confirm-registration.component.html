@@ -1,0 +1,84 @@
+<main>
+    <app-nav-bar [headerTitle]="PageTitle"></app-nav-bar>
+    <div id="app" class="page-content page-content-shift">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form [formGroup]="confirmRegistrationForm" (ngSubmit)="GetUserDetail()" class="w100">
+                        <mat-form-field [hideRequiredMarker]="false">
+                            <input matInput placeholder="Enter Token ID." formControlName="tokenid" required>
+                            <mat-error>Field empty or invalid value
+                                entered.</mat-error>
+                        </mat-form-field>
+                        <button type="submit" style="padding-left: 1em;" class="btn form-label primary-button"
+                            [class.spinner]="loading" [disabled]="loading">Search User</button>
+                    </form>
+
+
+                    <div *ngIf="showDetails">
+                        <table *ngIf="notfound; else notfounddiv" mat-table [dataSource]="datasource"
+                            class="mat-elevation-z8 w100">
+
+                            <!-- Email Column -->
+                            <ng-container matColumnDef="Email">
+                                <th mat-header-cell *matHeaderCellDef> Email </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                            </ng-container>
+
+                            <!-- Total Fee Column -->
+                            <ng-container matColumnDef="Total Fee">
+                                <th mat-header-cell *matHeaderCellDef> Total Fee </th>
+                                <td mat-cell *matCellDef="let element"> {{element.TotalFee}} </td>
+                            </ng-container>
+
+                            <!-- Total Fee Column -->
+                            <ng-container matColumnDef="Pending Fee">
+                                <th mat-header-cell *matHeaderCellDef> Pending Fee </th>
+                                <td mat-cell *matCellDef="let element"> {{element.PendingFee}} </td>
+                            </ng-container>
+
+                            <!-- Fee Status Fee Column -->
+                            <ng-container matColumnDef="Payment Status">
+                                <th mat-header-cell *matHeaderCellDef> Payment Status </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-chip-list>
+                                        <mat-chip *ngIf="element.isFeePaid; else pending"
+                                            style="background-color: green; font-size: 0.75em;" selected>Confirmed
+                                        </mat-chip>
+                                        <ng-template #pending>
+                                            <mat-chip color="warn" style="font-size: 0.75em;" selected>Pending
+                                            </mat-chip>
+                                        </ng-template>
+                                    </mat-chip-list>
+                                </td>
+                            </ng-container>
+
+                            <!-- Button Column -->
+                            <ng-container matColumnDef="Confirm Payment">
+                                <th mat-header-cell *matHeaderCellDef> Confirm Payment </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button color="primary" type="button" [disabled]="element.isFeePaid"
+                                        (click)="confirmPayment()">
+                                        Confirm
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                        <ng-template #notfounddiv>
+                            <p>
+                                Oops! No Participant with TokenID: {{confirmRegistrationForm.value.tokenid}} found.
+                                Please try a known Token ID.
+                            </p>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</main>

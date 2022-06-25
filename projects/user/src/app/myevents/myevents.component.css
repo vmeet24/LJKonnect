@@ -1,0 +1,17 @@
+.mat-panel-title {
+    font-weight: bold;
+    color: #26266A;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.fallback-text {
+    margin: 0.25em 0.5em 0.25em 1em;
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    font-size: 1.5rem;
+    opacity: 1;
+}

@@ -1,0 +1,50 @@
+<main>
+    <app-side-nav-bar [headerTitle]="PageTitle"></app-side-nav-bar>
+    <div (swipe)="swipeSidebarToggle($event)" id="overlay"></div>
+    <div (swipe)="swipeSidebarToggle($event)" id="app" class="page-content">
+        <div class="container">
+            <div class="row row-class">
+                <div class="name w100">
+                    <h1 class="header"><span>LJ</span>KONNECT</h1>
+                    <p class="tagline">Create<span>.</span>Connect<span>.</span>Aware<span>.</span></p>
+                </div>
+
+                <p class="quote">Planning without action is futile, action without planning is fatal.</p>
+                <p class="description"><a routerLink="/homepage">LJKonnect</a> was started with a motive to make the
+                    event handling process smooth at both the user and organiser side.We provide a two-way platform;
+                    where events can be created flawlessly in a assembly line manner on the organiser's end, also on the
+                    other side participant fails to miss even single event and can also participate in respective event
+                    through online registration facility. The functionality of customized admin-panel and real-time
+                    event updates defines our uniqueness from other event management platforms.</p>
+
+                <div class="team">
+                    <h3 class="team-title">Team <span>LJKonnect</span></h3>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 team-member">
+                                <img src="../../assets/images/KishanKankhara.jpg" class="img-circle">
+                                <h3 class="member-name">Kishan Kankhara</h3>
+                                <h6 class="member-designation">CDO</h6>
+                            </div>
+                            <div class="col-md-3 team-member">
+                                <img src="../../assets/images/JanviPatel.jpg" class="img-circle">
+                                <h3 class="member-name">Janvi Patel</h3>
+                                <h6 class="member-designation">COO</h6>
+                            </div>
+                            <div class="col-md-3 team-member">
+                                <img src="../../assets/images/MeetVora.jpg" class="img-circle">
+                                <h3 class="member-name">Meet Vora</h3>
+                                <h6 class="member-designation">CTO</h6>
+                            </div>
+                            <div class="col-md-3 team-member">
+                                <img src="../../assets/images/ShrutiShah.jpg" class="img-circle">
+                                <h3 class="member-name">Shruti Shah</h3>
+                                <h6 class="member-designation">CTO</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,96 @@
+<main>
+    <app-side-nav-bar [headerTitle]="PageTitle"></app-side-nav-bar>
+    <div (swipe)="swipeSidebarToggle($event)" id="overlay"></div>
+    <div (swipe)="swipeSidebarToggle($event)" id="app" class="page-content">
+        <div class="container">
+            <div class="row row-class">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <header class="text-center" style="padding-top:20px;">
+                        <img src={{post.Event_Image_Link}} [class.registerationClosedImg]="hidden" class="masthead">
+                        <p *ngIf="hidden" class="registerationClosedText">Registration Closed</p>
+                    </header>
+                </div>
+                <div class="col-md-2"></div>
+                <section class="col-md-12 col-sm-12 col-xs-12 col-lg-12 text-center">
+                    <div class="container">
+                        <h1 class="font-weight-bold pt1em">{{post.Event_Name}}</h1>
+                        <p class="para-with-line-break">
+                            {{post.Event_Description}}
+                        </p>
+                        <p>
+                            <span style="font-weight: bold; ">Note: </span>{{post.Event_Disclaimer}}
+                        </p>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4>Date:</h4>
+                                    <p *ngIf="oneDayEvent(post.Event_Start_Date,post.Event_End_Date); else twoDayEvent"
+                                        style="padding: 0;">
+                                        {{post.Event_Start_Date.seconds* 1000 | date:'fullDate'}}</p>
+                                    <ng-template #twoDayEvent>
+                                        <p style="padding: 0;">
+                                            {{post.Event_Start_Date.seconds* 1000 | date:'dd'}} -
+                                            {{post.Event_End_Date.seconds* 1000 | date:'d MMMM, yyyy'}}</p>
+                                    </ng-template>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Venue:</h4>
+                                    <p>{{post.Event_Venue}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Time:</h4>
+                                    <p>{{post.Event_Time}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="post.Contains_SubEvent === 'Yes'" class="container">
+                            <h1 class="font-weight-bold">Sub-Events</h1>
+                            <mat-accordion>
+                                <mat-expansion-panel *ngFor="let subpost of subEvents; let i = index"
+                                    class="text-center" (opened)="setStep(i)" hideToggle>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{subpost.Event_Name}}
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <div class="my-event-accord-description">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h4>Date:</h4>
+                                                    <p *ngIf="oneDayEvent(subpost.Event_Start_Date, subpost.Event_End_Date); else twoDayeve"
+                                                        style="padding: 0;">
+                                                        {{subpost.Event_Start_Date.seconds* 1000 | date:'fullDate'}}
+                                                    </p>
+                                                    <ng-template>
+                                                        <p style="padding: 0;">
+                                                            {{subpost.Event_Start_Date.seconds* 1000 | date:'dd'}} -
+                                                            {{subpost.Event_End_Date.seconds* 1000 | date:'d MMMM, yyyy'}}
+                                                        </p>
+                                                    </ng-template>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h4>Venue:</h4>
+                                                    <p>{{subpost.Event_Venue}}</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h4>Event Type:</h4>
+                                                    <p>{{subpost.Event_Type}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                        <button mat-flat-button (click)="register()" class="card-register-btn"
+                            [disabled]="hidden">Register
+                            Now</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,125 @@
+.login-page {
+    top: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: block;
+    background-color: #303F9F;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: auto;
+}
+
+mat-card {
+    width: 40%;
+    margin: 5vh auto;
+    border-radius: 8px;
+}
+
+mat-form-field, mat-checkbox {
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+mat-card-content {
+    margin-top: 20px;
+}
+
+.login-button {
+    margin-top: 20px;
+    display: block;
+    width: 50%;
+    margin: 20px auto;
+    background-color: #26266A;
+    color: white;
+    font-size: medium;
+}
+
+.brand-image {
+    width: 20%;
+}
+
+.brand-div {
+    text-align: center;
+    width: 100%;
+}
+
+/*Theme CSS*/
+
+.google-btn {
+    background-color: #B23121;
+}
+
+.sub-btn {
+    width: 30%;
+    padding: 10px 10px 10px 0;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    color: #878787;
+    font-size: 0.8em;
+    white-space: nowrap;
+    background: none;
+}
+
+.sub-btn:hover {
+    -webkit-box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+    box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.21);
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 1024px) {}
+
+@media only screen and (max-width: 600px) {
+    mat-card {
+        width: 90%;
+    }
+    .login-button {
+        width: 70%;
+        font-size: small;
+    }
+}
+
+
+@media only screen and (max-width: 300px) {
+    mat-card {
+        width: 90%;
+    }
+    .login-button {
+        width: 70%;
+        font-size: small;
+    }
+}
+
+@media only screen and (max-height: 400px) {}
+
+@media only screen and (min-height: 401px) {}
+
+/* MEDIA QUERIES */
